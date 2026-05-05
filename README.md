@@ -25,7 +25,7 @@ Datasets can be found [here]()
 If you use this work in your research, please cite:
 
 ```bibtex
-@InProceedings{Hogstedt_2025_ICCV,
+@InProceedings{Hogstedt_2026_ICIP,
     author    = {H{\o}gstedt, Espen Uri and Schellewald, Christian and Stahl, Annette and Mester, Rudolf},
     title     = {PATCH ENSEMBLES FOR ROBUST SALMON RE-IDENTIFICATION WITH WEAK TRAJECTORY LABELS},
     booktitle = {2026 IEEE International Conference on Image Processing (ICIP)},
