@@ -17,24 +17,53 @@ Our ensemble approach outperforms full-image baselines in same-trajectory valida
 ## 📂 Project Structure
 
 <details>
-<summary><strong>📁 data_generation/</strong> - Notebooks for creating salmon re-identification datasets from raw videos (Sections 3.1-3.5)</summary>
+<summary><strong>📁 data_generation/</strong> - Notebooks for creating salmon re-identification datasets from raw videos (Sections 3.1, 3.4, 3.5)</summary>
 <br>
-
+ 
 - **`track_salmon.ipynb`** - Yields salmon and body part trajectories from raw salmon video.
 - **`create_reid_dataset.ipynb`** - Yields salmon images and labels (salmon direction, mask + corners for Q1 and Q2) from raw videos and trajectories.
- 
 </details>
+
 <details>
 <summary><strong>📁 helpers/</strong> - Helper files for the other files in the project </summary>
 <br>
-
-- **`data_generation_helpers/`** - Helpers for `data_generation/create_reid_dataset`.
+ 
+- **`data_generation_helpers/`** - Helpers for `data_generation/create_reid_dataset.ipynb`.
 - **`augmentation_helpers/`** - Helpers for extracting augmented and cropped images from full-salmon images and labels.
 - **`test_helpers/`** - Helper for `training_testing/test_reid_network.py`.
 - **`training_helpers/`** - Helper for `training_testing/train_reid_network.py`.
-- 
 </details>
----
+
+<details>
+<summary><strong>📁 segmentation/</strong> - Notebook for generating the quarter patch segmentation model (3.2-3.3) </summary>
+<br>
+ 
+- **`train_seg_network.ipynb/`** - Train a yolo segmentation network from salmon images with labelme labels.
+</details>
+
+<details>
+<summary><strong>📁 statistical_analysis/</strong> - Notebook for calculating bootstrap statistics (confidence intervals and p-values) of test mAP (3.10). </summary>
+<br>
+ 
+- **`statistical_analysis.ipynb/`** - Calculates 95% confidence intervals for all models and two-sided p-values for all model pairs (including visualization).
+</details>
+
+<details>
+<summary><strong>📁 training_testing/</strong> - Files for performing the training and testing of the re-identification models (3.6-3.9). </summary>
+<br>
+ 
+- **`test_reid_network.py/`** - Test re-identification models on the cross-camera test set.
+- **`test_reid_network.slurm/`** - Run `training_testing/test_reid_network.py` on a compute cluster.
+- **`train_reid_network.py/`** - Train re-identification models.
+- **`train_reid_network.slurm/`** - Run `training_testing/train_reid_network.py` on a compute cluster.
+</details>
+
+<details>
+<summary><strong>📁 visualizations/</strong> - Generate visualization of the salmon patchification. </summary>
+<br>
+ 
+- **`visualize_patchification.ipynb/`** - Visualize the salmon patchification.
+</details>
 
 
 ## 📊 Datasets
