@@ -35,21 +35,21 @@ Our ensemble approach outperforms full-image baselines in same-trajectory valida
 </details>
 
 <details>
-<summary><strong>📁 segmentation/</strong> - Notebook for generating the quarter patch segmentation model (3.2-3.3) </summary>
+<summary><strong>📁 segmentation/</strong> - Notebook for generating the quarter patch segmentation model (Sections 3.2-3.3) </summary>
 <br>
  
 - **`train_seg_network.ipynb/`** - Train a yolo segmentation network from salmon images with labelme labels.
 </details>
 
 <details>
-<summary><strong>📁 statistical_analysis/</strong> - Notebook for calculating bootstrap statistics (confidence intervals and p-values) of test mAP (3.10). </summary>
+<summary><strong>📁 statistical_analysis/</strong> - Notebook for calculating bootstrap statistics (confidence intervals and p-values) of test mAP (Section 3.10) </summary>
 <br>
  
 - **`statistical_analysis.ipynb/`** - Calculates 95% confidence intervals for all models and two-sided p-values for all model pairs (including visualization).
 </details>
 
 <details>
-<summary><strong>📁 training_testing/</strong> - Files for performing the training and testing of the re-identification models (3.6-3.9). </summary>
+<summary><strong>📁 training_testing/</strong> - Files for performing the training and testing of the re-identification models (Sections 3.6-3.10) </summary>
 <br>
  
 - **`test_reid_network.py/`** - Test re-identification models on the cross-camera test set.
@@ -59,7 +59,7 @@ Our ensemble approach outperforms full-image baselines in same-trajectory valida
 </details>
 
 <details>
-<summary><strong>📁 visualizations/</strong> - Generate visualization of the salmon patchification. </summary>
+<summary><strong>📁 visualizations/</strong> - Generate visualization of the salmon patchification </summary>
 <br>
  
 - **`visualize_patchification.ipynb/`** - Visualize the salmon patchification.
