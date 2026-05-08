@@ -14,6 +14,29 @@ A key component of our method is the prediction of the salmon's lateral line, en
 To enable realistic evaluation, we introduce an experimental setup using multiple cameras placed 6 m apart, allowing the same fish to be recorded in different trajectories. This enables the construction of a cross-camera test set through manual match confirmation.
 Our ensemble approach outperforms full-image baselines in same-trajectory validation (0.932 to 0.965 mAP) and cross-camera testing (0.609 to 0.860 mAP). The substantial improvements in the cross-camera setting demonstrate improved generalizability and robustness.
 
+## 📂 Project Structure
+
+<details>
+<summary><strong>📁 data_generation/</strong> - Notebooks for creating salmon re-identification datasets from raw videos (Sections 3.1-3.5)</summary>
+<br>
+
+- **`track_salmon.ipynb`** - Yields salmon and body part trajectories from raw salmon video.
+- **`create_reid_dataset.ipynb`** - Yields salmon images and labels (salmon direction, mask + corners for Q1 and Q2) from raw videos and trajectories.
+ 
+</details>
+<details>
+<summary><strong>📁 helpers/</strong> - Helper files for the other files in the project </summary>
+<br>
+
+- **`data_generation_helpers/`** - Helpers for `data_generation/create_reid_dataset`.
+- **`augmentation_helpers/`** - Helpers for extracting augmented and cropped images from full-salmon images and labels.
+- **`test_helpers/`** - Helper for `training_testing/test_reid_network.py`.
+- **`training_helpers/`** - Helper for `training_testing/train_reid_network.py`.
+- 
+</details>
+---
+
+
 ## 📊 Datasets
 
 
