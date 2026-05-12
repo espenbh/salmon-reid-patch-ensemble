@@ -67,7 +67,7 @@ Our ensemble approach outperforms full-image baselines in same-trajectory valida
 
 
 ## 📊 Data
-- **`reid`** - Contains the salmon re-identification dataset. Analysis folder 1-14 contains the training data, 15 the validation data, and 16 the test data (from another camera).
+- **`reid_dataset`** - Contains the salmon re-identification dataset. Analysis folder 1-14 contains the training data, 15 the validation data, and 16 the test data (from another camera).
 - **`segmentation`** - Contains the segmentation dataset (labelme format) with manually annotated Q1, Q2 and operculum.
 - **`reid_models`** - Contains the training results (including model weights) for all models in our paper.
 - **`test`** - Contains cross-camera test results for the most central test (ViT_baseline, sliced-patch models).
