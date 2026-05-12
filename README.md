@@ -72,7 +72,7 @@ Our ensemble approach outperforms full-image baselines in same-trajectory valida
 - **`reid_models`** - Contains the training results (including model weights) for all models in our paper.
 - **`test`** - Contains cross-camera test results for the most central test (ViT_baseline, sliced-patch models).
 - **`a15_a16_idmatch_with_traj_IDs`** - File with manually verified matches between analysis folder 15 and analysis folder 16 (cross-camera).
-- **`ap_per_query_all_models`** - Contains per-quary AP for each model. Used for calculating bootstrap statistics.
+- **`ap_per_query_all_models`** - Contains per-query AP for each model. Used for calculating bootstrap statistics.
 
 Datasets can be found [here]().
 
