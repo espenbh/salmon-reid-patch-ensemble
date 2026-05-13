@@ -74,7 +74,7 @@ Our ensemble approach outperforms full-image baselines in same-trajectory valida
 - **`a15_a16_idmatch_with_traj_IDs`** - File with manually verified matches between analysis folder 15 and analysis folder 16 (cross-camera).
 - **`ap_per_query_all_models`** - Contains per-query AP for each model. Used for calculating bootstrap statistics.
 
-Datasets can be found [here]().
+Datasets will be released shortly.
 
 Our models use DINOv3 backbones. License and code can be found here: https://github.com/facebookresearch/dinov3
 
