@@ -10,7 +10,7 @@ import os
 # Define test run
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 network_path = Path('/cluster/home/espebh/salmon_reid_ICIP/data/trained_networks/')
-key_folder_map = {'Q1': 'analysis5', 'Q2': 'analysis6', 'head': 'analysis7', 'dorsal_fin': 'analysis8', 'complete_img': 'analysis1'}
+key_folder_map = {'Q1': 'analysis3', 'Q2': 'analysis4', 'head': 'analysis7', 'dorsal_fin': 'analysis8', 'complete_img': 'analysis2'}
 
 # Build configs
 parts_cfg = {}
@@ -46,6 +46,23 @@ gallery_loader = get_dataloader(gallery_config, difficulty='easiest', shuffle=Fa
 query_files, query_ids = get_file_names_and_labels(config['data_root'], ['analysis15'])
 gallery_files, gallery_ids = get_file_names_and_labels(config['data_root'], ['analysis16'])
 match_files_and_ids = {'query_files': query_files, 'query_ids': query_ids, 'gallery_files': gallery_files, 'gallery_ids': gallery_ids}
+
+calculate_cross_q1_and_ensemble_plots_fused(
+    parts_cfg,                    # dict: 'Q1','Q2','head','dorsal_fin' -> {'model':..., 'processor':...}
+    query_loader,                 # 12 slots: (g_q1,q1s0,q1s1,q1s2, g_q2,q2s0,q2s1,q2s2, head, dorsal, complete, labels)
+    gallery_loader,               # same 12 slots from anoidmatch_xlsx_pathther folder
+    config['out_root'] / Path('test_single_convnext_with_val_l075'),
+    device=device,
+    queries_per_sheet=15, matches_per_query=6,
+    plot_q_indices=None,          # optional subset of query indices to visualize
+    lambda_mix=0.75, rrf_k=20,
+    group_ids=True, strict_global=False,
+    idmatch_xlsx_path = '/cluster/home/espebh/salmon_reid_nov25/data/reid/a15_a16_idmatch_with_traj_IDs.xlsx',
+    match_files_and_ids = match_files_and_ids,
+    quarter_models = 'single',
+    holdout_patches = [],
+    plot_images = True,
+    )
 
 # Run test
 #os.makedirs(config['out_root'] / Path('lambda_ablation'), exist_ok = True)
@@ -106,21 +123,21 @@ match_files_and_ids = {'query_files': query_files, 'query_ids': query_ids, 'gall
 #        plot_images = False,
 #    )
     
-os.makedirs(config['out_root'] / Path('k_ablation'), exist_ok = True)
-for i in [1, 10, 20, 30, 60, 100, 150, 200, 300, 500]:#[150, 200, 300, 500]:
-    calculate_cross_q1_and_ensemble_plots_fused(
-        parts_cfg,                    # dict: 'Q1','Q2','head','dorsal_fin' -> {'model':..., 'processor':...}
-        query_loader,                 # 12 slots: (g_q1,q1s0,q1s1,q1s2, g_q2,q2s0,q2s1,q2s2, head, dorsal, complete, labels)
-        gallery_loader,               # same 12 slots from anoidmatch_xlsx_pathther folder
-        config['out_root'] / Path('k_ablation') / Path('test_results_k_' + str(i)),
-        device=device,
-        queries_per_sheet=15, matches_per_query=6,
-        plot_q_indices=None,          # optional subset of query indices to visualize
-        lambda_mix=0.75, rrf_k=i,
-        group_ids=True, strict_global=False,
-        idmatch_xlsx_path = '/cluster/home/espebh/salmon_reid_nov25/data/reid/a15_a16_idmatch_with_traj_IDs.xlsx',
-        match_files_and_ids = match_files_and_ids,
-        quarter_models = 'sliced',
-        holdout_patches = [],
-        plot_images = False,
-    )
+#os.makedirs(config['out_root'] / Path('k_ablation'), exist_ok = True)
+#for i in [1, 10, 20, 30, 60, 100, 150, 200, 300, 500]:#[150, 200, 300, 500]:
+#    calculate_cross_q1_and_ensemble_plots_fused(
+#        parts_cfg,                    # dict: 'Q1','Q2','head','dorsal_fin' -> {'model':..., 'processor':...}
+#        query_loader,                 # 12 slots: (g_q1,q1s0,q1s1,q1s2, g_q2,q2s0,q2s1,q2s2, head, dorsal, complete, labels)
+#        gallery_loader,               # same 12 slots from anoidmatch_xlsx_pathther folder
+#        config['out_root'] / Path('k_ablation') / Path('test_results_k_' + str(i)),
+#        device=device,
+#        queries_per_sheet=15, matches_per_query=6,
+#        plot_q_indices=None,          # optional subset of query indices to visualize
+#        lambda_mix=0.75, rrf_k=i,
+#        group_ids=True, strict_global=False,
+#        idmatch_xlsx_path = '/cluster/home/espebh/salmon_reid_nov25/data/reid/a15_a16_idmatch_with_traj_IDs.xlsx',
+#        match_files_and_ids = match_files_and_ids,
+#        quarter_models = 'sliced',
+#        holdout_patches = [],
+#        plot_images = False,
+#    )
