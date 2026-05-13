@@ -76,6 +76,8 @@ Our ensemble approach outperforms full-image baselines in same-trajectory valida
 
 Datasets can be found [here]().
 
+Our models use DINOv3 backbones. License and code can be found here: https://github.com/facebookresearch/dinov3
+
 ## 📄 Citation
 
 If you use this work in your research, please cite:
