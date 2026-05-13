@@ -145,6 +145,16 @@ def _write_ap_csv(folder, q_labels, per_query_AP, id_match_map, mapped_mask):
             if not mapped_mask[i]: continue
             w.writerow([qid, id_match_map.get(qid, ""), float(per_query_AP[i])])
 
+def _write_ap_csv_val(folder, q_labels, per_query_AP):
+    """Write a CSV file with AP for all queries in the validation (query→query) setting."""
+    os.makedirs(folder, exist_ok=True)
+    path = os.path.join(folder, "ap_per_query_validation.csv")
+    with open(path, "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["Query", "AP"])
+        for i, qid in enumerate(q_labels):
+            w.writerow([qid, float(per_query_AP[i])])
+
 def _write_map_txt(folder, mAP_value, mapped_count=None, total_queries=None):
     os.makedirs(folder, exist_ok=True)
     path = os.path.join(folder, "mAP.txt")
@@ -499,12 +509,13 @@ def calculate_cross_q1_and_ensemble_plots_fused(
     def compute_val_mAP(emb):
         S = cosine_similarity(emb, emb)
         np.fill_diagonal(S, -np.inf)
-        return compute_map(S, Q["labels"])[0]
+        return compute_map(S, Q["labels"])
 
     validation_results = {}
+    per_query_ap_val = {}
     for part in ["Q1","Q2","head","dorsal_fin","complete_img"]:
         if Q[part] is not None:
-            validation_results[part] = compute_val_mAP(Q[part])
+            validation_results[part], per_query_ap_val[part] = compute_val_mAP(Q[part])
 
     # Ensemble validation
     def fuse_self(emb_dict):
@@ -524,7 +535,7 @@ def calculate_cross_q1_and_ensemble_plots_fused(
         )
 
     S_val_ens = fuse_self(Q)
-    validation_results["ensemble"] = compute_map(S_val_ens, Q["labels"])[0]
+    validation_results["ensemble"], per_query_ap_val["ensemble"] = compute_map(S_val_ens, Q["labels"])
 
     # ==========================================================================================
     # CROSS-SET TEST (QUERY→GALLERY)
@@ -565,6 +576,7 @@ def calculate_cross_q1_and_ensemble_plots_fused(
     os.makedirs(ensemble_dir, exist_ok=True)
 
     _write_ap_csv(ensemble_dir, Q["labels"], ap_ens, id_match_map, mapped_mask_ens)
+    _write_ap_csv_val(ensemble_dir, Q["labels"], per_query_ap_val["ensemble"])
     _write_map_txt(ensemble_dir, mAP_ens, mapped_mask_ens.sum(), len(Q["labels"]))
 
     # mAP for individual parts
@@ -686,6 +698,7 @@ def calculate_cross_q1_and_ensemble_plots_fused(
             )
 
         _write_ap_csv(part_dir, Q["labels"], ap_p, id_match_map, mapped_mask_p)
+        _write_ap_csv_val(part_dir, Q["labels"], per_query_ap_val[part])
         _write_map_txt(part_dir, mAP_p, mapped_mask_p.sum(), len(Q["labels"]))
 
     print("[INFO] All plotting done.")
